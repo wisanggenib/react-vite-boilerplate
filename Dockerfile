@@ -1,0 +1,31 @@
+# Stage 1: Build
+FROM node:20-alpine AS build
+
+WORKDIR /app
+
+COPY package.json package-lock.json* ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+# Stage 2: Serve
+FROM nginx:stable-alpine
+
+# Copy built files
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Copy nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy env injection script
+COPY env.sh /docker-entrypoint.d/env.sh
+RUN chmod +x /docker-entrypoint.d/env.sh
+
+# Create empty env-config.js (will be overwritten at runtime by env.sh)
+RUN echo "window.__ENV = {};" > /usr/share/nginx/html/env-config.js
+
+EXPOSE 80
+
+# Nginx docker image already runs scripts in /docker-entrypoint.d/ on start
+CMD ["nginx", "-g", "daemon off;"]
