@@ -195,15 +195,51 @@ Komponen primitif reusable ada di `src/shared/components/ui/`:
 
 ## 11. Styling
 
-- CSS plain tanpa Tailwind (meskipun arsitektur doc menyebut Tailwind, implementasi aktual pakai plain CSS)
+Proyek menggunakan **dua lapisan styling yang koeksisten**:
+
+### Lapisan 1 — Plain CSS (existing)
 - Setiap fitur/komponen punya file `.css` co-located di folder yang sama
 - CSS global di `src/styles/globals.css` dan `src/styles/variables.css`
-- Gunakan CSS variables yang sudah ada di `variables.css` untuk warna, spacing, dll
+- Gunakan CSS variables dari `variables.css` untuk warna, spacing, dll
 - Jangan taruh class yang hanya dipakai satu komponen ke `globals.css`
+
+### Lapisan 2 — Tailwind CSS v4 (untuk shadcn/ui)
+- Tailwind **hanya boleh digunakan** pada komponen shadcn di `src/shared/components/ui/`
+- Komponen fitur (`features/`) tetap menggunakan plain CSS co-located
+- Jangan campurkan Tailwind utilities dengan plain CSS dalam satu komponen
+- Jika butuh override tampilan komponen shadcn, gunakan prop `className` dengan `cn()`
 
 ---
 
-## 12. Bahasa: JavaScript (bukan TypeScript)
+## 12. shadcn/ui
+
+shadcn/ui adalah **sumber utama komponen UI primitif** (button, input, dialog, dll).
+
+### Cara install komponen baru:
+```bash
+pnpm dlx shadcn@latest add <nama-komponen>
+```
+Komponen akan otomatis ditempatkan di `src/shared/components/ui/` (sesuai alias `ui` di `components.json`).
+
+### Rules:
+
+| # | Aturan |
+|---|---|
+| 1 | Komponen shadcn **hanya** boleh ada di `src/shared/components/ui/` |
+| 2 | Export via barrel file `src/shared/components/ui/index.js` |
+| 3 | Gunakan `cn()` dari `src/shared/utils/cn.js` untuk merge class |
+| 4 | Jangan modifikasi file komponen shadcn secara langsung — override via props `className` |
+| 5 | `tsx: false` di `components.json` — semua file tetap `.jsx` / `.js` |
+| 6 | Jangan install library icon baru; gunakan `lucide-react` yang sudah jadi dependency shadcn |
+
+### Hubungan dengan komponen existing:
+- Komponen lama (`Button.jsx`, `Input.jsx`, dll) boleh tetap ada selama belum dimigrate
+- Saat migrasi, ganti secara menyeluruh dalam satu fitur — jangan campur komponen lama dan shadcn
+- Komponen shadcn **lebih diutamakan** untuk komponen baru
+
+---
+
+## 13. Bahasa: JavaScript (bukan TypeScript)
 
 Meskipun `Arsitektur.md` menunjukkan ekstensi `.ts/.tsx`, implementasi aktual menggunakan **JavaScript murni** (`.js/.jsx`).
 
@@ -213,7 +249,7 @@ Meskipun `Arsitektur.md` menunjukkan ekstensi `.ts/.tsx`, implementasi aktual me
 
 ---
 
-## 13. Docker & Deployment
+## 14. Docker & Deployment
 
 ```
 build image → container start → env.sh runs → nginx serves static files
@@ -226,7 +262,7 @@ build image → container start → env.sh runs → nginx serves static files
 
 ---
 
-## 14. Dependency Minimalism
+## 15. Dependency Minimalism
 
 Dependensi saat ini sangat minimal: `react`, `react-dom`, `zustand`.
 
@@ -250,3 +286,6 @@ Dependensi saat ini sangat minimal: `react`, `react-dom`, `zustand`.
 | 8 | Halaman protected tanpa `AuthGuard` |
 | 9 | Logika API call langsung di dalam komponen (harus lewat service + hook) |
 | 10 | Menambah TypeScript tanpa diskusi |
+| 11 | Menggunakan Tailwind utilities di luar `src/shared/components/ui/` |
+| 12 | Memodifikasi file komponen shadcn secara langsung (kecuali via `className`) |
+| 13 | Membuat komponen UI primitif baru tanpa cek apakah shadcn sudah punya |

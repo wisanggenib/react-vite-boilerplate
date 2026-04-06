@@ -72,6 +72,11 @@ src/
 │   └── lib/
 │       └── apiClient.ts      ← Axios/fetch wrapper
 │
+│   [shadcn/ui config]
+│   components.json           ← Konfigurasi shadcn (root project)
+│   ↳ ui alias → src/shared/components/ui/
+│   ↳ utils alias → src/shared/utils/ (cn.js)
+│
 ├── app/                       ← Entry points / routing
 │   ├── routes.tsx
 │   ├── providers.tsx          ← Semua context providers
@@ -94,6 +99,10 @@ src/
 
 
 File dikelompokkan berdasarkan fitur/domain bisnis. Setiap fitur adalah self-contained module.
+
+> **Catatan `shared/components/ui/`**: Folder ini adalah lokasi komponen shadcn/ui.
+> Install komponen baru dengan `pnpm dlx shadcn@latest add <nama>`.
+> Komponen shadcn menggunakan Tailwind utility classes — jangan gunakan Tailwind di luar folder ini.
 
 ┌─────────────────────────────────────────────────────┐
 │                    DEPENDENCY RULES                  │

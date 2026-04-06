@@ -1,7 +1,80 @@
 /* ============================================
    Global Styles
    ============================================ */
+
+/* ── Tailwind v4 ────────────────────────────── */
+@import "tailwindcss";
 @import './variables.css';
+
+/*
+ * shadcn/ui CSS Variables
+ * Dipetakan dari design token di variables.css agar
+ * komponen shadcn (bg-background, text-foreground, dll)
+ * konsisten dengan tema dark yang sudah ada.
+ */
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;         /* --color-bg: #0f172a */
+    --foreground: 210 40% 98%;             /* --color-text: #f1f5f9 */
+
+    --card: 217.2 32.6% 17.5%;            /* --color-bg-card: #1e293b */
+    --card-foreground: 210 40% 98%;
+
+    --popover: 217.2 32.6% 17.5%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 239 84% 67%;               /* --color-primary: #6366f1 */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 198 93% 48%;             /* --color-secondary: #0ea5e9 */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215.4 16.3% 56.9%;  /* --color-text-secondary: #94a3b8 */
+
+    --accent: 217.2 32.6% 25%;            /* --color-bg-hover: #334155 */
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 72.2% 50.6%;        /* --color-danger: #ef4444 */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 217.2 32.6% 25%;           /* --color-border: #334155 */
+    --input: 217.2 32.6% 25%;
+    --ring: 239 84% 67%;                 /* --color-primary: #6366f1 */
+
+    --radius: 0.5rem;
+  }
+}
+
+/*
+ * Tailwind v4 Theme — Mapping shadcn semantic tokens ke Tailwind utilities
+ * bg-background, text-foreground, border-border, dll akan berfungsi.
+ */
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
 
 /* ── Reset ─────────────────────────────────── */
 *,
