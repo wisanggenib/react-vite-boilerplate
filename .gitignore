@@ -76,8 +76,8 @@ coverage/
 # Jika pakai npm → commit package-lock.json, ignore yang lain.
 # ============================================================
 yarn.lock
-pnpm-lock.yaml
-# package-lock.json → JANGAN di-ignore jika pakai npm
+package-lock.json
+# pnpm-lock.yaml → JANGAN di-ignore jika pakai pnpm
 
 # ============================================================
 # CATATAN PENTING — JANGAN DI-IGNORE:
