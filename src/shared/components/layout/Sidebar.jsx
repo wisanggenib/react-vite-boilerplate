@@ -16,6 +16,7 @@ export function Sidebar({ activePage = 'home', onNavigate }) {
       { id: 'users', label: 'Users', icon: '👥' },
       { id: 'products', label: 'Products', icon: '📦' },
       { id: 'cart', label: 'Cart', icon: '🛒' },
+      { id: 'characters', label: 'Characters', icon: '👾' },
     ]},
     { section: 'Account', items: [
       // Replaced Login/Register with Logout since Sidebar is valid only for auth users

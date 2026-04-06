@@ -8,6 +8,7 @@ import { UserList } from '../features/users'
 import { ProductList } from '../features/products'
 import { CartSummary } from '../features/cart'
 import { HomePage } from '../features/home'
+import { CharacterList } from '../features/characters'
 
 export function getPageComponent(pageId, { onAddToCart, onNavigate }) {
   switch (pageId) {
@@ -50,6 +51,16 @@ export function getPageComponent(pageId, { onAddToCart, onNavigate }) {
         ),
         title: 'Shopping Cart',
         subtitle: 'Review your items and checkout',
+      }
+    case 'characters':
+      return {
+        component: (
+          <AuthGuard onNavigate={onNavigate}>
+            <CharacterList />
+          </AuthGuard>
+        ),
+        title: 'Characters',
+        subtitle: 'Rick & Morty characters from GraphQL',
       }
     case 'login':
       return {

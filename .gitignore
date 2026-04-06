@@ -1,0 +1,89 @@
+# ============================================================
+# DEPENDENCIES
+# ============================================================
+node_modules/
+
+# ============================================================
+# BUILD OUTPUT
+# Hasil `npm run build` — di-serve oleh nginx dalam Docker.
+# Tidak perlu di-commit; di-generate ulang tiap build.
+# ============================================================
+dist/
+dist-ssr/
+
+# ============================================================
+# VITE CACHE
+# ============================================================
+.vite/
+*.local
+
+# ============================================================
+# ENVIRONMENT VARIABLES
+# PENTING: Jangan pernah commit file .env yang berisi secret.
+# Semua env var di-inject via Docker runtime (env.sh).
+# Gunakan .env.example sebagai template tanpa nilai sensitif.
+# ============================================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+# .env.example → JANGAN di-ignore, simpan sebagai template
+
+# ============================================================
+# LOGS
+# ============================================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ============================================================
+# OS FILES
+# ============================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ============================================================
+# EDITOR & IDE
+# ============================================================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ============================================================
+# TESTING (future-proof)
+# ============================================================
+coverage/
+.nyc_output/
+
+# ============================================================
+# PACKAGE MANAGER
+# Lock file dipilih salah satu sesuai package manager yang dipakai.
+# Jika pakai npm → commit package-lock.json, ignore yang lain.
+# ============================================================
+yarn.lock
+pnpm-lock.yaml
+# package-lock.json → JANGAN di-ignore jika pakai npm
+
+# ============================================================
+# CATATAN PENTING — JANGAN DI-IGNORE:
+#
+# public/env-config.js  → placeholder window.__ENV = {} untuk dev lokal.
+#                         env.sh akan overwrite ini saat container start.
+#                         File ini WAJIB ada di repo agar build Vite
+#                         tidak error saat development.
+# ============================================================
