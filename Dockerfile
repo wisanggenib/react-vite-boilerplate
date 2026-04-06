@@ -1,5 +1,7 @@
 # Stage 1: Build
-FROM node:20-alpine AS build
+FROM node:22-alpine AS build
+
+RUN apk upgrade --no-cache
 
 WORKDIR /app
 
@@ -12,7 +14,9 @@ COPY . .
 RUN pnpm run build
 
 # Stage 2: Serve
-FROM nginx:stable-alpine
+FROM nginx:alpine-slim
+
+RUN apk upgrade --no-cache
 
 # Copy built files
 COPY --from=build /app/dist /usr/share/nginx/html
